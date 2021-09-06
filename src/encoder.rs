@@ -31,7 +31,7 @@ pub trait Encoder<A> {
         }
     }
 
-    fn flat_comap<B, F>(&self, function: F) -> FlatComap<B>
+    fn flat_comap<B, F>(&self, function: F) -> FlatComap<Self, F>
     where
         F: Fn(B) -> DataResult<A>,
     {
@@ -46,11 +46,11 @@ pub trait Encoder<A> {
     }
 }
 
-fn empty<A>() -> Empty<A> {
+fn empty<A>() -> Empty {
     Empty {}
 }
 
-fn error<A>(error: impl AsRef<str>) -> Error<A> {
+fn error<A>(error: impl AsRef<str>) -> Error {
     Error {
         error: error.into(),
     }
