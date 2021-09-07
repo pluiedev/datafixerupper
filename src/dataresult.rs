@@ -10,7 +10,14 @@ impl<R> DataResult<R> {
         Self { result, lifecycle }
     }
 
-    pub fn error(message: String, lifecycle: Lifecycle) {
+    pub fn success(result: R, lifecycle: Lifecycle) -> Self {
+        Self {
+            result: Ok(result),
+            lifecycle
+        }
+    }
+
+    pub fn error(message: String, lifecycle: Lifecycle) -> Self {
         Self {
             result: Err(PartialResult::new(vec![message], None)),
             lifecycle

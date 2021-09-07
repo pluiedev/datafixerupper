@@ -2,8 +2,10 @@ use std::collections::HashMap;
 
 use crate::{Keys, dynamicops::DynamicOps};
 
-trait Compressable: Keys {
-    fn compressor<T>(ops: impl DynamicOps<T>) -> KeyCompressor<T>;
+pub trait Compressable: Keys {
+    fn compressor<T, O>(ops: O) -> KeyCompressor<T, O>
+    where
+        O: DynamicOps<T>;
 }
 
 pub struct KeyCompressor<T, O> {
